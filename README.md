@@ -14,7 +14,7 @@ Before running the application, make sure you have the following installed:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/gerard1001/task-flow-nodejs.gi
+   git clone https://github.com/gerard1001/task-flow-nodejs.git
    ```
 
 2. Install dependencies:
