@@ -1,0 +1,53 @@
+{
+  "name": "task_flow_nodejs",
+  "version": "1.0.0",
+  "description": "Backend API for mobile task flow app",
+  "main": "src/app.js",
+  "scripts": {
+    "dev": " cross-env NODE_ENV=development nodemon --exec npx babel-node src/app.js",
+    "build": "babel src -d build",
+    "start": "cross-env NODE_ENV=production npm run build && cross-env NODE_ENV=production npm run migrate:all && cross-env NODE_ENV=production node ./build/app.js",
+    "format": "pretty-quick",
+    "lint": "eslint src/*.js --fix",
+    "migrate": "npx sequelize-cli db:migrate",
+    "seed": "npx sequelize-cli db:seed:all",
+    "seed:undo": "npx sequelize-cli db:seed:undo",
+    "migrate:undo": "npx sequelize-cli db:migrate:undo:all",
+    "migrate:reset": "npm run migrate:undo && npm run dbmigrate",
+    "migrate:all": "npm run migrate:undo && npm run migrate && npm run seed"
+  },
+  "author": "Gerard",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/cli": "^7.23.9",
+    "@babel/core": "^7.23.9",
+    "@babel/plugin-proposal-class-properties": "^7.18.6",
+    "@babel/plugin-transform-runtime": "^7.23.9",
+    "@babel/preset-env": "^7.23.9",
+    "babel-plugin-module-resolver": "^5.0.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
+    "date-fns": "^3.3.1",
+    "dotenv": "^16.4.4",
+    "express": "^4.18.2",
+    "joi": "^17.12.1",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "pg": "^8.11.3",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.0",
+    "sequelize-cli": "^6.6.2",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "@babel/node": "^7.23.9",
+    "@types/body-parser": "^1.19.5",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/morgan": "^1.9.9",
+    "nodemon": "^3.0.3"
+  }
+}
