@@ -1,4 +1,4 @@
-import { Task, User } from "../../database/models";
+import { Task, User, SubTask } from "../../database/models";
 
 export default class TaskService {
   async create(data) {
@@ -15,12 +15,30 @@ export default class TaskService {
             attributes: [],
           },
         },
+        {
+          model: SubTask,
+          as: "subTasks",
+        },
       ],
     });
   }
 
   async getAll() {
-    return await Task.findAll();
+    return await Task.findAll({
+      include: [
+        {
+          model: User,
+          as: "users",
+          through: {
+            attributes: [],
+          },
+        },
+        {
+          model: SubTask,
+          as: "subTasks",
+        },
+      ],
+    });
   }
 
   async update(id, data, options) {

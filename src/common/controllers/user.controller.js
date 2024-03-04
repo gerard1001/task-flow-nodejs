@@ -28,6 +28,7 @@ export default class UserController {
         categories,
       } = req.body;
 
+      console.log(req.body);
       for (const category of categories) {
         const categoryExist = await this.categoryService.getById(category);
         if (!categoryExist) {
@@ -80,12 +81,12 @@ export default class UserController {
 
       if (!user) {
         return res.status(404).json({
-          message: "Incorrect email or password",
+          error: "Incorrect email or password",
         });
       }
       if (!user.isApproved) {
         return res.status(404).json({
-          message: "You are not approved yet, please contact the admin",
+          error: "You are not approved yet, please contact the admin",
         });
       }
 
@@ -93,7 +94,7 @@ export default class UserController {
 
       if (!validPassword) {
         return res.status(404).json({
-          message: "Incorrect email or password",
+          error: "Incorrect email or password",
         });
       }
 
@@ -122,6 +123,35 @@ export default class UserController {
       const { id } = req.params;
       const user = await this.userService.getById(id);
       return res.status(200).json(user);
+    } catch (error) {
+      return res.status(400).json({ error: error.message });
+    }
+  }
+
+  async getByToken(req, res) {
+    try {
+      const { id } = req.decoded;
+      const user = await this.userService.getById(id);
+      return res.status(200).json(user);
+    } catch (error) {
+      return res.status(400).json({ error: error.message });
+    }
+  }
+
+  async validateToken(req, res) {
+    try {
+      console.log(req.decoded);
+      const { id } = req.decoded;
+      const user = await this.userService.getById(id);
+      if (!user) {
+        return res.status(404).json({
+          valid: false,
+          error: "User not found",
+        });
+      }
+      return res.status(200).json({
+        valid: true,
+      });
     } catch (error) {
       return res.status(400).json({ error: error.message });
     }

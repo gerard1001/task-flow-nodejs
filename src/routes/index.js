@@ -14,6 +14,6 @@ routes.use("/task", taskRoutes);
 routes.use("/sub_task", subTaskRoutes);
 routes.use("/user_task", userTaskRoutes);
 routes.use("/user_category", userCategoryRoutes);
-routes.use("/user", userCategoryRoutes);
+// routes.use("/user", userCategoryRoutes);
 
 export default routes;

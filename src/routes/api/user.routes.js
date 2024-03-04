@@ -31,8 +31,16 @@ userRoutes.get("/", checkLoggedIn, checkAdmin, async (req, res) => {
   return await new UserController().getAll(req, res);
 });
 
-userRoutes.get("/:id", async (req, res) => {
+userRoutes.get("/one/:id", async (req, res) => {
   return await new UserController().getById(req, res);
+});
+
+userRoutes.get("/token", checkLoggedIn, async (req, res) => {
+  return await new UserController().getByToken(req, res);
+});
+
+userRoutes.get("/validate/token", checkLoggedIn, async (req, res) => {
+  return await new UserController().validateToken(req, res);
 });
 
 userRoutes.patch("/:id", checkLoggedIn, checkOwner, async (req, res) => {

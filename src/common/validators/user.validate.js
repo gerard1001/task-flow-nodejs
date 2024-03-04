@@ -15,8 +15,9 @@ export const createUserValidations = (req, res, next) => {
 
   const result = schema.validate(req.body);
   if (result.error) {
+    console.log(req.body);
     res.status(400).json({
-      message: result.error.details[0].message.replace(/["'`]+/g, ""),
+      error: result.error.details[0].message.replace(/["'`]+/g, ""),
     });
   } else {
     return next();
@@ -32,7 +33,7 @@ export const loginUserValidations = (req, res, next) => {
   const result = schema.validate(req.body);
   if (result.error) {
     res.status(400).json({
-      message: result.error.details[0].message.replace(/["'`]+/g, ""),
+      error: result.error.details[0].message.replace(/["'`]+/g, ""),
     });
   } else {
     return next();
