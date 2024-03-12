@@ -1,4 +1,4 @@
-import { Task, User, SubTask } from "../../database/models";
+import { Task, User, SubTask, Category } from "../../database/models";
 
 export default class TaskService {
   async create(data) {
@@ -36,6 +36,10 @@ export default class TaskService {
         {
           model: SubTask,
           as: "subTasks",
+        },
+        {
+          model: Category,
+          as: "category",
         },
       ],
     });

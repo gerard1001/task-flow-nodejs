@@ -7,7 +7,7 @@ export const checkLoggedIn = async (req, res, next) => {
     const token = checkToken(req);
 
     if (!token) {
-      return res.status(401).json({ message: "Not logged in" });
+      return res.status(401).json({ error: "Not logged in" });
     }
 
     let decoded;
@@ -119,11 +119,9 @@ export const checkAdminOrOwner = async (req, res, next) => {
     const role = user.role.type;
 
     if (role !== "admin" && user.userId !== req.params.id) {
-      return res
-        .status(401)
-        .json({
-          message: "Only admins or profile owner can perform this action",
-        });
+      return res.status(401).json({
+        message: "Only admins or profile owner can perform this action",
+      });
     }
 
     req.user = user;

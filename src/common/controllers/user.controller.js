@@ -1,3 +1,4 @@
+import { imageUpload } from "../../helpers/upload.helper";
 import {
   comparePassword,
   generateToken,
@@ -43,7 +44,8 @@ export default class UserController {
       }
 
       if (req.file) {
-        req.body.picture = `http://localhost:4040/image/${req.file.filename}`;
+        // req.body.picture = `http://localhost:4040/image/${req.file.filename}`;
+        req.body.picture = await imageUpload(req);
       }
       const user = await this.userService.create({
         roleId: "722b8164-8a28-4bf6-b5c2-501459546cff",
@@ -176,7 +178,8 @@ export default class UserController {
         return res.status(404).json({ message: "User not found" });
       }
       if (req.file) {
-        req.body.picture = `http://localhost:4040/image/${req.file.filename}`;
+        // req.body.picture = `http://localhost:4040/image/${req.file.filename}`;
+        req.body.picture = await imageUpload(req);
       }
       if (req.body.roleId) delete req.body.roleId;
 

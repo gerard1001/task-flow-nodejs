@@ -43,9 +43,15 @@ userRoutes.get("/validate/token", checkLoggedIn, async (req, res) => {
   return await new UserController().validateToken(req, res);
 });
 
-userRoutes.patch("/:id", checkLoggedIn, checkOwner, async (req, res) => {
-  return await new UserController().update(req, res);
-});
+userRoutes.patch(
+  "/:id",
+  upload.single("picture"),
+  checkLoggedIn,
+  checkOwner,
+  async (req, res) => {
+    return await new UserController().update(req, res);
+  }
+);
 
 userRoutes.patch(
   "/approve/:id",
